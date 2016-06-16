@@ -3,6 +3,11 @@ modified from:
 http://www.free-css.com/assets/files/free-css-menus/download/page1/menu4.zip 
 */
 
+html {
+	margin: 0 auto;
+	max-width: 1024px;
+}
+
 body {
 	/* font: bold 11px/1.5em Verdana; */
 	
