@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" href="styles.css" type="text/css" />
+<title>ov2optimizer - How Indexing Helps</title>
+</head>
+<body>
+<h1>ov2optimizer - How Indexing Helps</h1>
+<div id="tabs">
+  <ul>
+    <li><a href="./"><span>Home</span></a></li>
+    <li><a href="installing.html"><span>Installing</span></a></li>
+    <li><a href="usage.html"><span>Usage</span></a></li>
+    <li><a href="ov2FileFormat.html"><span>OV2 File Format</span></a></li>
+    <li><a href="howIndexingHelps.html"><span>How Indexing Helps</span></a></li>
+    <li><a href="implementation.html"><span>Implementation</span></a></li>
+    <li><a href="ov2scan.html"><span>ov2scan</span></a></li>
+  </ul>
+</div>
+<p>
+Consider an OV2 file containing all of the McDonalds locations in the United States and Canada. I downloaded one such file that contained 15163 POI records with no indexing. 
+</p>
+<p>
+After installing that file on my TomTom it now (presumably) had to scan all 15163 POI records before each screen update so it would know whether or not to show the corresponding icon on my navigation screen. It had to read at least 13 bytes per POI record (one byte for the Record Type, and 4 bytes each for the Record Length, Longitude, and Latitude), so the effort required was<br />
+<pre>
+bytes to read: 15163 * 13 = 197119 bytes (192 KB)
+lat/lon comparisons: 15163
+</pre>
+</p>
+<p>
+However, after running the OV2 file through ov2optimizer my TomTom could find the very last record (which would be the worst-case for a full "table scan") like this:<br />
+<pre>
+Step 1. SkipRec: In this block, stepping...
+Step 2. SkipRec: Skipping 132929 bytes to offset 132950... OK
+Step 3. SkipRec: In this block, stepping...
+Step 4. SkipRec: Skipping 449570 bytes to offset 582541... OK
+Step 5. SkipRec: In this block, stepping...
+Step 6. SkipRec: Skipping 46179 bytes to offset 628741... OK
+Step 7. SkipRec: In this block, stepping...
+Step 8. SkipRec: In this block, stepping...
+Step 9. SkipRec: Skipping 31441 bytes to offset 660224... OK
+Step 10. SkipRec: In this block, stepping...
+Step 11. SkipRec: Skipping 3362 bytes to offset 663607... OK
+Step 12. SkipRec: In this block, stepping...
+Checking POIs: Found it after scanning 2 POI records
+</pre>
+Skipper records are only 21 bytes long and require 2 lat/lon comparisons, so the effort was reduced to<br />
+<pre>
+bytes to read: (12 * 21) + (2 * 13) = 278 bytes (0.14% of previous)
+lat/lon comparisons: (12 * 2) + (2 * 1) = 26 (0.17% of previous)
+</pre>
+</p>
+</body>
+</html>

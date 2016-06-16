@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" href="styles.css" type="text/css" />
+<title>ov2optimizer - Implementation</title>
+</head>
+<body>
+<h1>ov2optimizer - Implementation</h1>
+<div id="tabs">
+  <ul>
+    <li><a href="./"><span>Home</span></a></li>
+    <li><a href="installing.html"><span>Installing</span></a></li>
+    <li><a href="usage.html"><span>Usage</span></a></li>
+    <li><a href="ov2FileFormat.html"><span>OV2 File Format</span></a></li>
+    <li><a href="howIndexingHelps.html"><span>How Indexing Helps</span></a></li>
+    <li><a href="implementation.html"><span>Implementation</span></a></li>
+    <li><a href="ov2scan.html"><span>ov2scan</span></a></li>
+  </ul>
+</div>
+<h4>Development Environment</h4>
+<p>
+This incarnation of ov2optimizer (v2.x) is a re-write of a utility I built years ago using VB6 and the Jet database engine. While that old v1.x version still works okay, even with Windows 8.1, I wanted to bring it more up to date by using C# and <a href="http://system.data.sqlite.org/" target="_blank">System.Data.Sqlite</a>. It still runs as a 32-bit application (because it was written on a 32-bit machine), but v2.x runs noticeably faster than v1.x, mainly because the SQLite database is maintained completely in memory.
+</p>
+<h4>Algorithm</h4>
+<p>
+The key piece of the application is a method named ProcessBlock(). As the POI records are loaded into the SQLite database the application keeps track of the maximum and minimum values for Longitude and Latitude. Once all of the POIs are loaded the application calls ProcessBlock() with those max/min values, which represents a rectangle that covers the entire set of POIs. 
+</p>
+<p>
+ProcessBlock() queries the database to see if more than 20 POIs are in the specified rectangle. If so, it divides the rectangle in half and calls itself recursively to work on each half. This recursion continues (alternating North/South and East/West splits) until a specified rectangle contains no more than 20 POIs, at which point ProcessBlock() writes the skipper record and POI data (eventual OV2 output) to a binary buffer. After all rectangles have been completely processed the binary OV2 data is written to a .ov2 file on disk.
+</p>
+<h4>Source Code</h4>
+<p>
+The source code is available at <a href="https://github.com/gordthompson/ov2optimizer">https://github.com/gordthompson/ov2optimizer</a>
+</p>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" href="styles.css" type="text/css" />
+<title>ov2optimizer - Usage</title>
+</head>
+<body>
+<h1>ov2optimizer - Usage</h1>
+<div id="tabs">
+  <ul>
+    <li><a href="./"><span>Home</span></a></li>
+    <li><a href="installing.html"><span>Installing</span></a></li>
+    <li><a href="usage.html"><span>Usage</span></a></li>
+    <li><a href="ov2FileFormat.html"><span>OV2 File Format</span></a></li>
+    <li><a href="howIndexingHelps.html"><span>How Indexing Helps</span></a></li>
+    <li><a href="implementation.html"><span>Implementation</span></a></li>
+    <li><a href="ov2scan.html"><span>ov2scan</span></a></li>
+  </ul>
+</div>
+<p>
+I use ov2optimizer to update my POI files as I download them. When Firefox prompts me to "Save" or "Open" the OV2 or CSV file, I choose to open it with ov2optimizer.exe. 
+</p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="saveAs.png" width=438 height=309 alt="Save As dialog">
+<p>
+When the optimization is complete I am prompted with a "Save" dialog (just as if I had chosen "Save" in Firefox). ov2optimizer remembers the last-used save folder so it defaults to the map directory on my TomTom.
+</p>
+<p>
+Of course, you can always just 
+<ul>
+<li>launch ov2optimizer and choose the file(s) to optimize in the File Open dialog, or,</li>
+<li>you can drag and drop OV2 and/or CSV files onto an ov2optimizer shortcut in Windows Explorer.</li>
+</ul>
+</p>
+<h4>Notes</h4>
+<!-- <p>
+If you want to see whether a particular OV2 file contains skipper records you can use my <a href="../ov2scan/">ov2scan</a> utility.
+</p> -->
+<p>
+Most of the OV2 files that ship with TomTom devices (i.e., the built-in POIs) are encrypted. If you try to run any of them through ov2optimizer you will get an error message.
+</p>
+</body>
+</html>

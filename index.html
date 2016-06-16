@@ -1,1 +1,41 @@
-My Page
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" href="styles.css" type="text/css" />
+<title>ov2optimizer</title>
+</head>
+<body>
+<h1>ov2optimizer</h1>
+<div id="tabs">
+  <ul>
+    <li><a href="./"><span>Home</span></a></li>
+    <li><a href="installing.html"><span>Installing</span></a></li>
+    <li><a href="usage.html"><span>Usage</span></a></li>
+    <li><a href="ov2FileFormat.html"><span>OV2 File Format</span></a></li>
+    <li><a href="howIndexingHelps.html"><span>How Indexing Helps</span></a></li>
+    <li><a href="implementation.html"><span>Implementation</span></a></li>
+    <li><a href="ov2scan.html"><span>ov2scan</span></a></li>
+  </ul>
+</div>
+<p>
+OV2 files are binary files used by <a href="http://www.tomtom.com" target="_blank">TomTom</a> navigation devices to store Points Of Interest (POIs). A POI is simply a location (latitude and longitude) that can be used as a destination, a waypoint along a route, or the source of a warning (e.g., for intersections with red-light cameras).
+</p>
+<p>
+While fooling around with OV2 files on my TomTom GO 720 I discovered that the vast majority of POI editors and converters create OV2 files that can impair the performance of our TomTom devices. These files contain the POI information but they lack the internal indexing that allows the TomTom to scan through the file quickly. 
+</p>
+<p>
+So if "Show POI on map" is enabled (as it is by default when you add a new OV2 file to your device), or if you have enabled "Warn when near POI" for a POI category, the TomTom is forced to read every POI record in that OV2 file to see which POIs are nearby. If you have a lot of these "unindexed" custom POIs installed you may start to experience a noticeable lag or "choppiness" in the screen updates as you drive.
+</p>
+<p>
+<em><strong>ov2optimizer</strong></em> is a free Windows application that creates OV2 files with the required indexing information (which TomTom calls "skipper records"). If you have downloaded third-party OV2 files, especially larger ones (e.g., <a href="http://www.poi-factory.com/node/38697" target="_blank">WiFi</a>, <a href="http://www.poi-factory.com/node/11154" target="_blank">McDonalds</a>, <a href="http://www.poi-factory.com/node/12311" target="_blank">Starbucks</a>, etc.) you may get faster and smoother screen updates after you run those OV2 files through ov2optimizer. 
+</p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="ov2screenshot.png" width=414 height=149 alt="Save As dialog">
+<p>
+	Note: You can also convert CSV files (e.g., POI Factory's "Red Light Camera" and "Speed Camera" <a href="http://www.poi-factory.com/poifiles/us/red-light-cameras" target="_blank">files</a>) to fully-indexed OV2 files.
+</p>
+<p>
+<b><i>Mac users:</i></b> You can achieve similar results by using an online tool created by another developer, available <a href="http://www.samposoft.com/tools/default.aspx">here</a>.
+</p>
+</body>
+</html>

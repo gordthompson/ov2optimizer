@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" href="styles.css" type="text/css" />
+<title>ov2optimizer - OV2 File Format</title>
+</head>
+<body>
+<h1>ov2optimizer - OV2 File Format</h1>
+<div id="tabs">
+  <ul>
+    <li><a href="./"><span>Home</span></a></li>
+    <li><a href="installing.html"><span>Installing</span></a></li>
+    <li><a href="usage.html"><span>Usage</span></a></li>
+    <li><a href="ov2FileFormat.html"><span>OV2 File Format</span></a></li>
+    <li><a href="howIndexingHelps.html"><span>How Indexing Helps</span></a></li>
+    <li><a href="implementation.html"><span>Implementation</span></a></li>
+    <li><a href="ov2scan.html"><span>ov2scan</span></a></li>
+  </ul>
+</div>
+<p>
+OV2 files are binary files containing variable-length records. Information in an OV2 file is either Integer (signed, <a href="http://en.wikipedia.org/wiki/Endianness" target="_blank">little-endian</a>) or String (null terminated). Longitudes and latitudes are stored as integers representing the decimal lon/lat value multiplied by 100000, so 118.5 degrees West longitude is stored as -11850000.
+</p>
+<p>
+The first byte of each record is the Record Type:<br/>
+<br/>
+0: Deleted POI Record<br/>
+1: Skipper Record<br/>
+2: Regular POI Record<br/>
+3: Extended POI Record<br/>
+</p>
+<h4>POI Records</h4>
+<p>
+For POI records (types 0, 2, and 3), the following 4 bytes contain the Record Length, which is the length of the entire record (including the byte for the Record Type and the 4 bytes for the Record Length). The next 4 bytes contain the Longitude, and the 4 bytes after that contain the Latitude. The remaining bytes represent null-terminated string values (the name of the POI, plus some other string values for Extended POI records).
+<table border=1 cellpadding=2>
+<tr>
+	<th>Record Byte(s)</th>
+	<th>Contents</th>
+</tr>
+<tr>
+	<td>0</td>
+	<td>Record Type (0, 2, or 3)</td>
+</tr>
+<tr>
+	<td>1 through 4</td>
+	<td>Record Length</td>
+</tr>
+<tr>
+	<td>5 through 8</td>
+	<td>Longitude</td>
+</tr>
+<tr>
+	<td>9 through 12</td>
+	<td>Latitude</td>
+</tr>
+<tr>
+	<td>13 through (Record Length - 1)</td>
+	<td>Null-terminated string value(s)</td>
+</tr>
+</table>
+</p>
+<h4>Skipper Records</h4>
+<p>
+Skipper records (type 1) are always 21 bytes long. They contain two sets of lon/lat pairs for the North-East and South-West corners of a rectangle, along with a "Block Length". For a given location (say, the current position of the vehicle), if that location falls outside the rectangle then we can just skip the next <em>n</em> bytes of the file.
+<table border=1 cellpadding=2>
+<tr>
+	<th>Record Byte(s)</th>
+	<th>Contents</th>
+</tr>
+<tr>
+	<td>0</td>
+	<td>Record Type (1)</td>
+</tr>
+<tr>
+	<td>1 through 4</td>
+	<td>Block Length (bytes to skip)</td>
+</tr>
+<tr>
+	<td>5 through 8</td>
+	<td>Longitude of NE corner</td>
+</tr>
+<tr>
+	<td>9 through 12</td>
+	<td>Latitude of NE corner</td>
+</tr>
+<tr>
+	<td>13 through 16</td>
+	<td>Longitude of SW corner</td>
+</tr>
+<tr>
+	<td>17 through 20</td>
+	<td>Latitude of SW corner</td>
+</tr>
+</table>
+</p>
+<p>
+For an example of how the TomTom device can use these Skipper Records, see <a href="howIndexingHelps.php">How Indexing Helps</a>.
+</body>
+</html>
