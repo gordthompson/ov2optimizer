@@ -19,7 +19,7 @@ Var ALREADY_INSTALLED
 ;-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 ;Name and file
 Name "ov2optimizer"
-OutFile "ov2optimizer.setup.2.0.0.0.exe"
+OutFile "ov2optimizer.setup.2.0.1.0.exe"
 ;-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 ;Default installation folder
@@ -64,9 +64,9 @@ Section "Main Section" SecMain
 	new_installation:
 
 	File /oname=ov2optimizer.exe \
-		"C:\Users\Gord\Documents\Visual Studio 2010\Projects\ov2optimizer\ov2optimizer\bin\Debug\ov2optimizer.exe"
+		"C:\Users\Gord\Documents\Visual Studio 2015\Projects\ov2optimizer\ov2optimizer\bin\Debug\ov2optimizer.exe"
 	File /oname=System.Data.SQLite.dll \
-		"C:\Users\Gord\Documents\Visual Studio 2010\Projects\ov2optimizer\ov2optimizer\bin\Debug\System.Data.SQLite.dll"
+		"C:\Users\Gord\Documents\Visual Studio 2015\Projects\ov2optimizer\ov2optimizer\bin\Debug\System.Data.SQLite.dll"
 	File /oname=License.rtf \
 		"License.rtf"
 		
