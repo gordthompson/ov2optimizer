@@ -31,7 +31,7 @@ namespace ov2optimizer
     {
         static string hkcuKeyName = @"HKEY_CURRENT_USER\Software\gordthompson.com\ov2optimizer";
         SQLiteConnection dbConn;
-        int limitE; int limitW; int limitN; int limitS;  // boundaries of overall rectangle for each POI file
+        int limitE; int limitW; int limitN; int limitS;  // define boundaries of overall rectangle for each POI file
         int processedCount = 0;
 
         public Form1()
@@ -118,7 +118,7 @@ namespace ov2optimizer
                     cmd.ExecuteNonQuery();
                 }
 
-                limitE = -18000000; int limitW = 18000000; int limitN = -9000000; int limitS = 9000000;  // Note: signs reversed to represent the most unlikely values
+                limitE = -18000000; limitW = 18000000; limitN = -9000000; limitS = 9000000;  // Note: signs reversed to represent the most unlikely values
                 int recordCount = LoadDatabaseFromFile(inFileSpec);
 
                 if (recordCount > 0)
