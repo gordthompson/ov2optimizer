@@ -31,7 +31,7 @@ namespace ov2optimizer
     {
         static string hkcuKeyName = @"HKEY_CURRENT_USER\Software\gordthompson.com\ov2optimizer";
         SQLiteConnection dbConn;
-        int limitE; int limitW; int limitN; int limitS;  // define boundaries of overall rectangle for each POI file
+        int fileLimitE; int fileLimitW; int fileLimitN; int fileLimitS;  // define boundaries of overall rectangle for each POI file
         int processedCount = 0;
 
         public Form1()
@@ -118,7 +118,7 @@ namespace ov2optimizer
                     cmd.ExecuteNonQuery();
                 }
 
-                limitE = -18000000; limitW = 18000000; limitN = -9000000; limitS = 9000000;  // Note: signs reversed to represent the most unlikely values
+                fileLimitE = -18000000; fileLimitW = 18000000; fileLimitN = -9000000; fileLimitS = 9000000;  // Note: signs reversed to represent the most unlikely values
                 int recordCount = LoadDatabaseFromFile(inFileSpec);
 
                 if (recordCount > 0)
@@ -142,7 +142,7 @@ namespace ov2optimizer
                     processedCount = 0;
 
                     // process the entire rectangular space, recursing as required
-                    List<byte> ov2data = ProcessBlock(limitE, limitN, limitW, limitS, 0);
+                    List<byte> ov2data = ProcessBlock(fileLimitE, fileLimitN, fileLimitW, fileLimitS, 0);
 
                     sw.Stop();
                     progressBar1.Visible = false;
@@ -465,10 +465,10 @@ namespace ov2optimizer
             else
             {
                 // keep track of max/min values as we go
-                if (intLon > limitE) limitE = intLon;
-                if (intLon < limitW) limitW = intLon;
-                if (intLat > limitN) limitN = intLat;
-                if (intLat < limitS) limitS = intLat;
+                if (intLon > fileLimitE) fileLimitE = intLon;
+                if (intLon < fileLimitW) fileLimitW = intLon;
+                if (intLat > fileLimitN) fileLimitN = intLat;
+                if (intLat < fileLimitS) fileLimitS = intLat;
             }
 
             return isValid;
